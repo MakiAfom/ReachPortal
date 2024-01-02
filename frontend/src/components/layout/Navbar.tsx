@@ -1,6 +1,5 @@
 import { SyntheticEvent, cloneElement, useEffect, useState } from "react";
 import {
-  AppBar,
   Container,
   Tabs,
   Tab,
@@ -12,12 +11,7 @@ import {
 import { styled } from "@mui/material/styles";
 import { Link, useLocation } from "react-router-dom";
 import AppDrawer from "./AppDrawer";
-import { MyLogo, MyToolbar } from "../../utils/StyledComps";
-
-const MyAppBar = styled(AppBar)(({ theme }) => ({
-  backgroundColor: "rgba(255,255,255,0.9)",
-  zIndex: theme.zIndex.drawer + 1,
-})) as typeof AppBar;
+import { MyAppBar, MyLogo, MyToolbar } from "../../utils/StyledComps";
 
 const MyTabs = styled(Tabs)(() => ({
   "& .MuiTabs-indicator": {

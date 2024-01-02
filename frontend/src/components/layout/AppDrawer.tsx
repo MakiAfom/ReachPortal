@@ -34,7 +34,6 @@ function AppDrawer(): JSX.Element {
     <>
       <Drawer open={open} anchor="top">
         <MyToolbar />
-        <></>
         <List sx={{ mx: 3 }} disablePadding>
           <MyListItemButton onClick={close} component={Link} to="/">
             <MyListItemText primary="Home" />
