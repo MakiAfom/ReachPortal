@@ -1,18 +1,13 @@
 import { Route, Routes } from "react-router-dom";
-import Layout from "./components/layout";
+import Auth from "./pages/Auth";
 
 function App() {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<div>Home</div>} />
-        <Route path="/resources" element={<div>Resources</div>} />
-        <Route path="/about" element={<div>About us</div>} />
-        <Route path="/login" element={<div>Login</div>} />
-        <Route path="/register" element={<div>Register</div>} />
-        <Route path="*" element={<div>Page not found</div>} />
-      </Routes>
-    </Layout>
+    <Routes>
+      <Route path="/" element={<div>Home</div>} />
+      <Route path="/auth" element={<Auth />} />
+      <Route path="*" element={<div>Page not found</div>} />
+    </Routes>
   );
 }
 
