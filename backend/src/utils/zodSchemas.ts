@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const passwordRegExp = new RegExp(
-  "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*\\W)(?!.*\\s).{8,16}$"
+  "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*\\W)(?!.*\\s).{7,15}$"
 );
 
 export const userSchema = z.object({

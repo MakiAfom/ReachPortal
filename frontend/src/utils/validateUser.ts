@@ -25,6 +25,13 @@ export function validateEmail(value: string) {
   return errMsg;
 }
 
+export function validateRole(value: string) {
+  const role = value.trim();
+
+  let errMsg = checkRequired("Role", role);
+  return errMsg;
+}
+
 export function validatePassword(value: string) {
   const password = value.trim();
 
