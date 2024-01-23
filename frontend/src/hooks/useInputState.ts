@@ -1,4 +1,4 @@
-import { ChangeEvent, useReducer } from "react";
+import { useReducer } from "react";
 
 interface InputState {
   enteredValue: string;
@@ -62,7 +62,7 @@ export default function useInputState({
   const isInputValid = !errMsg;
   const inputHasError = isInputBlurred && !!errMsg;
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+  const handleChange = (e: any) =>
     dispatch({ type: "CHANGE", payload: { value: e.target.value } });
   const handleBlur = () => dispatch({ type: "BLUR" });
   const reset = () => dispatch({ type: "RESET" });

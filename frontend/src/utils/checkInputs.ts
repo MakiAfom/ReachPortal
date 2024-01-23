@@ -32,7 +32,7 @@ export function checkEmail(email: string): string | null {
 
 export function checkPassword(password: string): string | null {
   const isPasswordValid =
-    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{7,15}$/.test(password);
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)(?!.*\s).{7,15}$/.test(password);
   if (!isPasswordValid) {
     return "Password must be at least 7 characters and contain a capital letter, small letter, number and special character";
   }
