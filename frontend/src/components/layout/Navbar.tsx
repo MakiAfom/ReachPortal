@@ -13,6 +13,7 @@ import { Link, useLocation } from "react-router-dom";
 import AppDrawer from "./AppDrawer";
 import { MyAppBar, MyLogo, MyToolbar } from "../../utils/StyledComps";
 
+
 const MyTabs = styled(Tabs)(() => ({
   "& .MuiTabs-indicator": {
     backgroundColor: "transparent",

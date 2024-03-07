@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import User from "../types/User";
 import { sendSignInRequest, sendSignUpRequest } from "./authThunks";
-import { AppDispatch } from ".";
 
 interface AuthState {
   status: "idle" | "pending" | "fulfilled" | "rejected";
