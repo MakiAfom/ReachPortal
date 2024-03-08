@@ -10,20 +10,217 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id String @id @default(cuid())
-  username String @unique
-  email String @unique 
-  password String
-  role Role @default(Refugee)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("users")
+model User{
+  id                String              @id @default(cuid())
+  name              String              @unique
+  email             String              @unique
+  password          String
+  role              Role                @default(Refugee)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  events            Event[]             @relation("organizer")
+  notes             Note[]
+  enrolledIn        Enrollment[]
+  courses           Course[]            @relation("enrollments")
+  sentMessages      PrivateMessage[]    @relation("sender")
+  receivedMessages  PrivateMessage[]    @relation("receiver")
+  messageAdmins     MessageAdmin[]
+  referralLinks     ReferralLink[]
+  eventRegistrations EventRegistration[]
+  forumPosts        ForumPost[]
+  comments          Comment[]
+  authoredAnnouncement Announcement[]  @relation("author")
 }
 
 enum Role {
   Refugee
   Volunteer
   Admin
+}
+
+model Course {
+  id          String       @id @default(cuid())
+  title       String
+  description String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  enrollments Enrollment[]
+  users       User[]       @relation("enrollments")
+}
+
+model Enrollment {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  String
+  createdAt DateTime @default(now())
+}
+
+model PrivateMessage {
+  id         String   @id @default(cuid())
+  sender     User     @relation("sender", fields: [senderId], references: [id])
+  senderId   String
+  receiver   User     @relation("receiver", fields: [receiverId], references: [id])
+  receiverId String
+  content    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model MessageAdmin {
+  id        String   @id @default(cuid())
+  content   String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ReferralLink {
+  id        String   @id @default(cuid())
+  url       String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id            String              @id @default(cuid())
+  title         String
+  description   String?
+  location      String?
+  date          DateTime?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  organizer     User                @relation("organizer", fields: [organizerId], references: [id])
+  organizerId   String
+  registrations EventRegistration[]
+}
+
+model EventRegistration {
+  id        String             @id @default(cuid())
+  user      User               @relation(fields: [userId], references: [id])
+  userId    String
+  event     Event              @relation(fields: [eventId], references: [id])
+  eventId   String
+  status    RegistrationStatus
+  createdAt DateTime           @default(now())
+}
+
+enum RegistrationStatus {
+  REGISTERED
+  CANCELLED
+}
+
+model ForumPost {
+  id        String    @id @default(cuid())
+  title     String
+  content   String
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  comments  Comment[] @relation("PostToComments")
+}
+
+model Comment {
+  id        String    @id @default(cuid())
+  content   String
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String
+  post      ForumPost @relation("PostToComments", fields: [postId], references: [id])
+  postId    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  content   String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SkilledUser {
+  id                String              @id @default(cuid())
+  profession        String              // The user's profession or occupation
+  expertise         String              // Specific areas of expertise
+  experience        Int                 // Years of experience
+  portfolioUrl      String?             // Link to user's portfolio or profile
+  linkedIn          String?             // LinkedIn profile URL
+  availability      String              // Availability for work
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
+
+model Announcement {
+  id          String    @id @default(cuid())
+  title       String
+  content     String
+  author      User      @relation("author",fields: [authorId], references: [id])
+  authorId    String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model JobVacancy {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  location    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model News {
+  id        String    @id @default(cuid())
+  title     String
+  content   String?
+  author    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HealthFacility {
+  id          String    @id @default(cuid())
+  name        String
+  location    String?
+  description String?
+  contact     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model LegalAidOrganization {
+  id          String    @id @default(cuid())
+  name        String
+  location    String?
+  description String?
+  contact     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model JobTrainingProgram {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  location    String?
+  contact     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model CommunitySupportService {
+  id          String   @id @default(cuid())
+  name        String
+  location    String?
+  description String?
+  contact     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
