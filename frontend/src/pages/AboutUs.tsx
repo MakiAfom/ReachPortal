@@ -1,7 +1,10 @@
-import AdminDashboard from "../components/admin/Admin"
+// import AdminDashboard from "../components/admin/Admin"
 
 
-// import DashboardVolunteer from "../components/volunteer/DashboardVolunteer"
+// import CommunityForum from "../components/communityForum/CommunityForum"
+import Footer from "../components/layout/Footer"
+import Navbar from "../components/layout/Navbar"
+import DashboardVolunteer from "../components/volunteer/DashboardVolunteer"
 
 
 
@@ -10,14 +13,15 @@ import AdminDashboard from "../components/admin/Admin"
 function AboutUs() {
   return (
   <>
-   
+      <Navbar />
       <div style={{ display: 'flex', marginTop: '64px' }}>
      
-        <AdminDashboard />
-        {/* <DashboardVolunteer /> */}
+        {/* <AdminDashboard /> */}
+        <DashboardVolunteer />
+        {/* <CommunityForum /> */}
 
       </div>
-    
+      <Footer />
      
 </>
   )

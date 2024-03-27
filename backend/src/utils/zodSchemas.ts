@@ -17,10 +17,11 @@ export const userSchema = z.object({
     .regex(passwordRegExp, {
       message: "Password is invalid",
     }),
+    image: z.string() ,
 });
 
 export const personSchema = userSchema.extend({
-  username: z
+  name: z
     .string({
       required_error: "Username is required",
     })

@@ -4,7 +4,7 @@ import User from "../types/User";
 
 export const sendSignUpRequest = createAsyncThunk<
   User,
-  { username: string; email: string; role: string; password: string }
+  { username: string; email: string; role: string; password: string; image: string }
 >("auth/sendSignupRequest", async (userData) => {
   try {
     const { data } = await axios.post<User>(

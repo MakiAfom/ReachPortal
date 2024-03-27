@@ -30,9 +30,9 @@ export const validateUser: RequestHandler = (req, res, next) => {
 };
 
 export const userAlreadyExists = wrapAsync(async (req, res, next) => {
-  const { email, username }: Person = req.body;
+  const { email, name }: Person = req.body;
 
-  let user = await prisma.user.findFirst({ where: { username } });
+  let user = await prisma.user.findFirst({ where: { name } });
   if (user) {
     return next(new AppError("User already exists", 400));
   }

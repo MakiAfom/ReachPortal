@@ -10,26 +10,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id                String              @id @default(cuid())
-  name              String              @unique
-  email             String              @unique
-  password          String
-  role              Role                @default(Refugee)
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  events            Event[]             @relation("organizer")
-  notes             Note[]
-  enrolledIn        Enrollment[]
-  courses           Course[]            @relation("enrollments")
-  sentMessages      PrivateMessage[]    @relation("sender")
-  receivedMessages  PrivateMessage[]    @relation("receiver")
-  messageAdmins     MessageAdmin[]
-  referralLinks     ReferralLink[]
-  eventRegistrations EventRegistration[]
-  forumPosts        ForumPost[]
-  comments          Comment[]
-  authoredAnnouncement Announcement[]  @relation("author")
+model User {
+  id                   String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                 String              @unique
+  email                String              @unique
+  password             String
+  role                 Role                @default(Refugee)
+  image                String              @db.Text
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+  events               Event[]             @relation("organizer")
+  notes                Note[]
+  enrolledIn           Enrollment[]
+  courses              Course[]            @relation("enrollments")
+  sentMessages         PrivateMessage[]    @relation("sender")
+  receivedMessages     PrivateMessage[]    @relation("receiver")
+  messageAdmins        MessageAdmin[]
+  referralLinks        ReferralLink[]
+  eventRegistrations   EventRegistration[]
+  forumPosts           ForumPost[]
+  comments             Comment[]
+  authoredAnnouncement Announcement[]      @relation("author")
+  additionaInfo        AdditionalInfo?
 }
 
 enum Role {
@@ -38,10 +40,30 @@ enum Role {
   Admin
 }
 
+//this schema is additional info for the volunteer role
+model AdditionalInfo {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userInfo       User     @relation(fields: [userInfoId], references: [id])
+  userInfoId     String   @unique @db.Uuid
+  phoneNumber    String
+  placeOfWork    String
+  position       String
+  profession     String // The user's profession or occupation
+  expertise      String // Specific areas of expertise
+  experience     Int // Years of experience
+  portfolioUrl   String? // Link to user's portfolio or profile
+  linkedIn       String? // LinkedIn profile URL
+  availability   String // Availability for work
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  additionalText String
+}
+
 model Course {
-  id          String       @id @default(cuid())
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title       String
   description String?
+  image       String       @db.Text
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   enrollments Enrollment[]
@@ -49,62 +71,63 @@ model Course {
 }
 
 model Enrollment {
-  id        String   @id @default(cuid())
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  userId    String   @db.Uuid
   course    Course   @relation(fields: [courseId], references: [id])
-  courseId  String
+  courseId  String   @db.Uuid
   createdAt DateTime @default(now())
 }
 
 model PrivateMessage {
-  id         String   @id @default(cuid())
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   sender     User     @relation("sender", fields: [senderId], references: [id])
-  senderId   String
+  senderId   String   @db.Uuid
   receiver   User     @relation("receiver", fields: [receiverId], references: [id])
-  receiverId String
+  receiverId String   @db.Uuid
   content    String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
 
 model MessageAdmin {
-  id        String   @id @default(cuid())
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   content   String
   user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  userId    String   @db.Uuid
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model ReferralLink {
-  id        String   @id @default(cuid())
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   url       String
   user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  userId    String   @db.Uuid
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Event {
-  id            String              @id @default(cuid())
+  id            String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title         String
   description   String?
   location      String?
+  image         String              @db.Text
   date          DateTime?
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt
   organizer     User                @relation("organizer", fields: [organizerId], references: [id])
-  organizerId   String
+  organizerId   String              @db.Uuid
   registrations EventRegistration[]
 }
 
 model EventRegistration {
-  id        String             @id @default(cuid())
+  id        String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   user      User               @relation(fields: [userId], references: [id])
-  userId    String
+  userId    String             @db.Uuid
   event     Event              @relation(fields: [eventId], references: [id])
-  eventId   String
+  eventId   String             @db.Uuid
   status    RegistrationStatus
   createdAt DateTime           @default(now())
 }
@@ -115,112 +138,109 @@ enum RegistrationStatus {
 }
 
 model ForumPost {
-  id        String    @id @default(cuid())
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title     String
   content   String
+  image     String    @db.Text
   author    User      @relation(fields: [authorId], references: [id])
-  authorId  String
+  authorId  String    @db.Uuid
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   comments  Comment[] @relation("PostToComments")
 }
 
 model Comment {
-  id        String    @id @default(cuid())
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   content   String
   author    User      @relation(fields: [authorId], references: [id])
-  authorId  String
+  authorId  String    @db.Uuid
   post      ForumPost @relation("PostToComments", fields: [postId], references: [id])
-  postId    String
+  postId    String    @db.Uuid
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
 
 model Note {
-  id        String   @id @default(cuid())
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   content   String
+  image     String   @db.Text
   user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  userId    String   @db.Uuid
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model SkilledUser {
-  id                String              @id @default(cuid())
-  profession        String              // The user's profession or occupation
-  expertise         String              // Specific areas of expertise
-  experience        Int                 // Years of experience
-  portfolioUrl      String?             // Link to user's portfolio or profile
-  linkedIn          String?             // LinkedIn profile URL
-  availability      String              // Availability for work
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-}
-
 model Announcement {
-  id          String    @id @default(cuid())
-  title       String
-  content     String
-  author      User      @relation("author",fields: [authorId], references: [id])
-  authorId    String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title     String
+  content   String
+  image     String   @db.Text
+  author    User     @relation("author", fields: [authorId], references: [id])
+  authorId  String   @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model JobVacancy {
-  id          String   @id @default(cuid())
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title       String
   description String?
   location    String?
+  image       String   @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
 model News {
-  id        String    @id @default(cuid())
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title     String
-  content   String?
-  author    String?
+  content   String
+  author    String
+  image     String   @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model HealthFacility {
-  id          String    @id @default(cuid())
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name        String
   location    String?
   description String?
   contact     String?
+  image       String   @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
 model LegalAidOrganization {
-  id          String    @id @default(cuid())
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name        String
   location    String?
   description String?
   contact     String?
+  image       String   @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
 model JobTrainingProgram {
-  id          String    @id @default(cuid())
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title       String
   description String?
   location    String?
   contact     String?
+  image       String   @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
 model CommunitySupportService {
-  id          String   @id @default(cuid())
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name        String
   location    String?
   description String?
   contact     String?
+  image       String   @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

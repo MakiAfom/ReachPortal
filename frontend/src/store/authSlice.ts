@@ -12,6 +12,7 @@ const initUser: User = {
   userId: "",
   username: "",
   email: "",
+  image:"",
   role: "",
   token: "",
   tokenExpirationDate: "",

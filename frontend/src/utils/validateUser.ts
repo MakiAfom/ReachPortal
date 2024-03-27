@@ -6,12 +6,12 @@ import {
 } from "./checkInputs";
 
 export function validateUsername(value: string) {
-  const username = value.trim();
+  const name = value.trim();
 
-  let errMsg = checkRequired("Username", username);
+  let errMsg = checkRequired("Username", name);
   if (errMsg) return errMsg;
 
-  errMsg = checkLength("Username", username, 3, 50);
+  errMsg = checkLength("Username", name, 3, 50);
   return errMsg;
 }
 

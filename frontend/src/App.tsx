@@ -9,6 +9,7 @@ import AboutUs from "./pages/AboutUs";
 
 import StudenDashboardInteract from "../src/components/student/StudentDashboardIteract"
 import StudentDashboard from "../src/components/student/StudentDashboard";
+import CommunityForm from "./components/communityForum/CommunityForum";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       <Route path="/resources" element={<Resources />} />
       <Route path="/StudentDashEnrollement" element={<StudentDashboard/>} />
       <Route path="/StudentDashboardInteract" element={<StudenDashboardInteract />} />
+      <Route path="/CommunityForum" element={<CommunityForm />} />
       <Route path="/about" element={<AboutUs />} />
       {/* <Route path="/auth" element={<Auth />} /> */}
       <Route path="*" element={<div>Page not found</div>} />
