@@ -149,6 +149,7 @@ export default function Auth(): JSX.Element {
           email: email.trim(),
           role: role.trim(),
           password: password.trim(),
+          image: ""
         })
       );
     }

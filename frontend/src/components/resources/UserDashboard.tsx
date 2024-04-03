@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import Draggable from "react-draggable";
 import { Link } from "react-router-dom";
+import userimageUrl from "../../assets/student.jpeg"
 
 // Define your custom blue and white colors
 const blueColor = "#2196f3";
@@ -58,7 +59,7 @@ const ProfileCard: React.FC<{ user: User }> = ({ user }) => (
   <Card sx={{ marginBottom: "20px", boxShadow: 4 }}>
     <CardContent sx={{ display: "flex", alignItems: "center" }}>
       <img
-        src={user.imageUrl}
+        src={userimageUrl}
         alt="User"
         style={{ width: "50px", height: "50px", borderRadius: "50%" }}
       />
@@ -88,21 +89,21 @@ const ResourceDashboard: React.FC = () => {
   const [currentVacancyIndex, setCurrentVacancyIndex] = useState<number>(0);
 
   const jobVacancies: JobVacancy[] = [
-    { title: "Job Vacancy 1", description: "Description for Job Vacancy 1" },
-    { title: "Job Vacancy 2", description: "Description for Job Vacancy 2" },
-    { title: "Job Vacancy 3", description: "Description for Job Vacancy 3" },
+    { title: "IT Business Solutions Manager", description: "The incumbent is responsible for formulating the right IT solution strategy for the Market or Cluster. " },
+    { title: "Business Analyst/Manager", description: "We are seeking a highly motivated Marketing/Business Analyst who will play a key part in conducting market ." },
+    { title: "Deputy Team Leader / Resident Engineer", description: "Why not come and work for one of Ireland's most progressive and ambitious engineering and environmental consultancies. " },
   ];
 
   const events: Event[] = [
     {
-      title: "Event 1",
+      title: "IT Business Solutions",
       time: "10:00 AM",
-      location: "Location 1",
+      location: "Addis Ababa, Addis Ababa, Ethiopia",
     },
     {
-      title: "Event 2",
+      title: "Business Managemnt",
       time: "02:00 PM",
-      location: "Location 2",
+      location: "Addis Ababa",
     },
   ];
 
@@ -118,13 +119,13 @@ const ResourceDashboard: React.FC = () => {
       id: 1,
       title: "News",
       content: "Latest news and updates",
-      imageUrl: "news.jpg",
+      imageUrl: "https://static.wixstatic.com/media/14a489_4d191f067eb44e25a837c2ebec7df9c5~mv2.jpg/v1/fill/w_640,h_352,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/14a489_4d191f067eb44e25a837c2ebec7df9c5~mv2.jpg",
     },
     {
       id: 2,
       title: "Health Care Facilities",
       content: "Content of Resource 2",
-      imageUrl: "image2.jpg",
+      imageUrl: "https://media.npr.org/assets/img/2020/12/11/ap_20344508742376-7a4cfccd5dcb3e2b796a74b7e5f2ca287573f324-s1100-c50.jpg",
     },
     {
       id: 3,
@@ -162,7 +163,7 @@ const ResourceDashboard: React.FC = () => {
 
   const testimonials: Testimonial[] = [
     {
-      imageUrl: "person1.jpg",
+      imageUrl: "https://watermark.lovepik.com/photo/20220225/large/lovepik-image-of-skilled-worker-in-workshop-with-tablet-in-picture_502362166.jpg",
       name: "Jane Smith",
       job: "Marketing Manager",
       email: "jane@example.com",
@@ -170,7 +171,7 @@ const ResourceDashboard: React.FC = () => {
       info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.consectetur adipiscing elit",
     },
     {
-      imageUrl: "person2.jpg",
+      imageUrl: "https://www.shutterstock.com/image-photo/portrait-indian-woman-worker-supervisor-260nw-2177714899.jpg",
       name: "Michael Johnson",
       job: "Sales Director",
       email: "michael@example.com",
@@ -178,7 +179,7 @@ const ResourceDashboard: React.FC = () => {
       info: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
     {
-      imageUrl: "person2.jpg",
+      imageUrl: "https://ichef.bbci.co.uk/images/ic/480xn/p0blxy8w.jpg.webp",
       name: "Michael Johnson",
       job: "Sales Director",
       email: "michael@example.com",
@@ -348,7 +349,7 @@ const ResourceDashboard: React.FC = () => {
                 <img
                   src={selectedResource.imageUrl}
                   alt={selectedResource.title}
-                  style={{ maxWidth: "100%" }}
+                  style={{ maxWidth: "100%", width: "20px" }}
                 />
               </div>
             )}

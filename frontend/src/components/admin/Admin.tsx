@@ -21,6 +21,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
+import reach from "../../assets/reach.svg"
 import {
   BarChart,
   Bar,
@@ -164,9 +165,9 @@ const Dashboard: React.FC = () => {
       >
         <MyToolbar>
           <MyLogo component={Link} to="/">
-            Reach
+          <Avatar alt="Introduction Image" src={reach} sx={{ width: 100, height: 70 }} />
           </MyLogo>
-          <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "right" }}>
+          <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "right"}}>
             <MyLogo>Admin Dashboard</MyLogo>
           </Typography>
         </MyToolbar>
@@ -252,7 +253,7 @@ const Dashboard: React.FC = () => {
       <main
         style={{
           flexGrow: 1,
-          padding: "20px",
+          padding: "80px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

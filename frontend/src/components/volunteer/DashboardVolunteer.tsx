@@ -17,6 +17,7 @@ import {
   Dialog,
   DialogContent,
 } from "@mui/material";
+import userimage from "../../assets/student.jpeg";
 import AdditionalInfoForm from "./AdditionalInfoForm";
 
 const Dashboard: React.FC = () => {
@@ -194,7 +195,7 @@ const Dashboard: React.FC = () => {
           <Paper style={{   ...paperStyles,padding: "20px"}}>
             <Avatar
               alt={user.name}
-              src={user.image}
+              src={userimage}
               style={{ marginBottom: "10px" }}
             />
             <div>Name: {user.name}</div>

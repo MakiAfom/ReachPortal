@@ -8,7 +8,7 @@ export const sendSignUpRequest = createAsyncThunk<
 >("auth/sendSignupRequest", async (userData) => {
   try {
     const { data } = await axios.post<User>(
-      "http://127.0.0.1:9000/api/register",
+      "http://127.0.0.1:9000/api/user/register",
       userData
     );
     return data;
@@ -23,7 +23,7 @@ export const sendSignInRequest = createAsyncThunk<
 >("auth/sendSignInRequest", async (userData) => {
   try {
     const { data } = await axios.post<User>(
-      "http://127.0.0.1:9000/api/login",
+      "http://127.0.0.1:9000/api/user/login",
       userData
     );
     return data;

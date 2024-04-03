@@ -57,7 +57,7 @@ const courseMaterials: CourseMaterial[] = [
           {
             id: "1",
             title: "Variables and Data Types",
-            content: "This is the introduction to variables and data types.",
+            content: "Each tool type has its particular purpose: A hammer to drive a nail into wood, a paint brush to paint, and a wrench tightens or loosens nuts and bolts. The same goes for the variables we use to hold data in our code. Regardless of the programming language you use, when building a website or app you will want to use the appropriate type of variable for a particular purpose. We will look at basic types and more complex types such as arrays (lists) and objects You can also watch the associated video here which walks through the key variable data types.",
           },
           {
             id: "2",

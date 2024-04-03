@@ -27,6 +27,8 @@ import {
   ThumbDown as ThumbDownIcon,
   Notifications as NotificationsIcon,
 } from "@mui/icons-material";
+import Navbar from "../layout/Navbar";
+import Footer from "../layout/Footer";
 
 interface Message {
   id: number;
@@ -177,6 +179,7 @@ const CommunityForm: React.FC = () => {
           marginLeft: "50px",
         }}
       >
+        <Navbar />
         <div style={{ marginBottom: "20px" }}>
           <Card style={{backgroundColor: '#f5f5f5' , boxShadow: 'none', width: '100%'}}>
            
@@ -354,6 +357,7 @@ const CommunityForm: React.FC = () => {
             message="Message sent successfully"
           />
         </div>
+        <Footer />
       </div>
   );
 };

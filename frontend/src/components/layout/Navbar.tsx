@@ -7,12 +7,13 @@ import {
   useScrollTrigger,
   useTheme,
   useMediaQuery,
+  Avatar,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Link, useLocation } from "react-router-dom";
 import AppDrawer from "./AppDrawer";
 import { MyAppBar, MyLogo, MyToolbar } from "../../utils/StyledComps";
-
+import reach from "../../assets/reach.svg";
 
 const MyTabs = styled(Tabs)(() => ({
   "& .MuiTabs-indicator": {
@@ -41,7 +42,10 @@ function ElevationScroll({ children }: { children: JSX.Element }): JSX.Element {
 }
 
 const MY_TABS = [
-  { name: "Resources", route: "/resources" },
+  { name: "Admin", route: "/AdminDashboard" },
+  { name: "community", route: "/CommunityForum" },
+  { name: "Volunteers", route: "/VolunteerDashboard" },
+  { name: "Refugess", route: "/resources" },
   { name: "About us", route: "/about" },
 ];
 
@@ -66,7 +70,11 @@ function Navbar(): JSX.Element {
           <Container maxWidth="lg">
             <MyToolbar sx={{ justifyContent: "space-between" }} disableGutters>
               <MyLogo component={Link} to="/">
-                Reach
+                <Avatar
+                  alt="Introduction Image"
+                  src={reach}
+                  sx={{ width: 100, height: 70 }}
+                />
               </MyLogo>
               {matchesMd && (
                 <MyTabs value={tabIndex} onChange={handleTabChange}>
